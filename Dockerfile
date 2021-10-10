@@ -1,6 +1,6 @@
 FROM opcycle/openjdk:11
 
-ARG SOLR_VERSION="8.10.0"
+ARG SOLR_VERSION="8.2.0"
 
 ENV SOLR_USER="solr" \
     SOLR_UID="8983" \
