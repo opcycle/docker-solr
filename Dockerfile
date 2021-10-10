@@ -12,7 +12,7 @@ RUN set -ex; \
   groupadd -r --gid "$SOLR_GID" "$SOLR_GROUP"; \
   useradd -r --uid "$SOLR_UID" --gid "$SOLR_GID" "$SOLR_USER"
 
-RUN wget -t 10 --retry-connrefused -nv $SOLR_DIST_URL -O "/opt/solr-$SOLR_VERSION.tgz"
+RUN curl $SOLR_DIST_URL --output "/opt/solr-$SOLR_VERSION.tgz"
 RUN tar -C /opt --extract --file "/opt/solr-$SOLR_VERSION.tgz"; \
   (cd /opt; mv "solr-$SOLR_VERSION" solr); \
   rm "/opt/solr-$SOLR_VERSION.tgz";
