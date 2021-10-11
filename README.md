@@ -19,6 +19,9 @@ When you start the Solr image, you can adjust the configuration of the instance 
 | `SOLR_PORT`               | `8080`        | Listen port                     |
 
 #### Config sets
+Configsets are a set of configuration files used in a Solr installation: solrconfig.xml, the schema, and then resources like language files, synonyms.txt, DIH-related configuration, and others that are referenced from the config or schema.
+Such configuration, configsets, can be named and then referenced by collections or cores, possibly with the intent to share them to avoid duplication.
+Solr ships with two example configsets located in server/solr/configsets, which can be used as a base for your own.
 
 #### Persisting Solr data
 If you remove the container all your data and configurations will be lost, and the next time you run the image the database will be reinitialized. To avoid this loss of data, you should mount a volume that will persist even after the container is removed.
@@ -35,7 +38,7 @@ docker service create --name solr \
   opcycle/solr:8.2.0
 ```
 
-When running Docker Engine in swarm mode, you can use docker stack deploy to deploy a complete application stack to the swarm. The deploy command accepts a stack description in the form of a Compose file.
+When running Docker Engine in swarm mode, you can use `docker stack deploy` to deploy a complete application stack to the swarm. The deploy command accepts a stack description in the form of a Compose file.
 
 ```bash
 docker stack deploy -c solr-stack.yml solr
