@@ -19,13 +19,16 @@ When you start the Solr image, you can adjust the configuration of the instance 
 | `SOLR_PORT`               | `8080`        | Listen port                     |
 
 #### Config sets
-Configsets are a set of configuration files used in a Solr installation: solrconfig.xml, the schema, and then resources like language files, synonyms.txt, DIH-related configuration, and others that are referenced from the config or schema.
+Configsets are a set of configuration files used in a Solr installation: `solrconfig.xml`, the schema, and then resources like language files, `synonyms.txt`, DIH-related configuration, and others that are referenced from the config or schema.
+
 Such configuration, configsets, can be named and then referenced by collections or cores, possibly with the intent to share them to avoid duplication.
-Solr ships with two example configsets located in server/solr/configsets, which can be used as a base for your own.
+Solr ships with two example configsets located in `server/solr/configsets`, which can be used as a base for your own.
 
 #### Persisting Solr data
 If you remove the container all your data and configurations will be lost, and the next time you run the image the database will be reinitialized. To avoid this loss of data, you should mount a volume that will persist even after the container is removed.
+
 For persistence you should mount a volume at the `/opt/solr/data/cores` path. The above examples define a docker volume namely solr_data. The Solr application state will persist as long as this volume is not removed.
+
 To avoid inadvertent removal of this volume you can mount host directories as data volumes. Alternatively you can make use of volume plugins to host the volume data.
 
 #### Run the Service
