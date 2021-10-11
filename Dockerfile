@@ -2,7 +2,8 @@ FROM opcycle/openjdk:11
 
 ARG SOLR_VERSION="8.2.0"
 
-ENV SOLR_USER="solr" \
+ENV SOLR_PORT="8080" \
+    SOLR_USER="solr" \
     SOLR_UID="8983" \
     SOLR_GROUP="solr" \
     SOLR_GID="8983" \

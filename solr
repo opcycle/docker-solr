@@ -17,7 +17,7 @@ exec java -server \
     -XX:CMSInitiatingOccupancyFraction=50 \
     -XX:CMSMaxAbortablePrecleanTime=6000 \
     -XX:+CMSParallelRemarkEnabled \
-    -Djetty.port=8080 \
+    -Djetty.port=$SOLR_PORT \
     -DSTOP.PORT=8703 \
     -DSTOP.KEY=solrrocks \
     -Duser.timezone=UTC \
@@ -31,7 +31,6 @@ exec java -server \
     -Dsolr.disable.shardsWhitelist=true \
     -Xss256k \
     -Dlog4j.configurationFile=/opt/solr/server/resources/log4j2-console.xml \
-    -Dsolr.jetty.https.port=8443 \
     -Dsolr.httpclient.builder.factory=org.apache.solr.client.solrj.impl.PreemptiveBasicAuthClientBuilderFactory \
     -jar /opt/solr/server/start.jar \
     --module=http
