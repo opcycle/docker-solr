@@ -8,16 +8,24 @@ ENV SOLR_USER="solr" \
     SOLR_GID="8983" \
     SOLR_DIST_URL="https://archive.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz"
 
-RUN set -ex; \
-  groupadd -r --gid "$SOLR_GID" "$SOLR_GROUP"; \
-  useradd -r --uid "$SOLR_UID" --gid "$SOLR_GID" "$SOLR_USER"
-
+RUN groupadd -r --gid "$SOLR_GID" "$SOLR_GROUP"
+RUN useradd -r --uid "$SOLR_UID" --gid "$SOLR_GID" "$SOLR_USER"
 RUN curl $SOLR_DIST_URL --output "/opt/solr-$SOLR_VERSION.tgz"
+
 RUN tar -C /opt --extract --file "/opt/solr-$SOLR_VERSION.tgz"; \
   (cd /opt; mv "solr-$SOLR_VERSION" solr); \
   rm "/opt/solr-$SOLR_VERSION.tgz";
 
-VOLUME /var/solr
+RUN rm -rf /opt/solr/*.txt /opt/solr/example /opt/solr/docs /opt/solr/licenses /opt/solr/bin
+RUN mkdir -p /opt/solr/server/work && mkdir -p /opt/solr/data/cores
+COPY solr /opt/solr
+COPY solr.xml /opt/solr/data
+RUN chmod +x /opt/solr/solr
+RUN chown solr:solr -R /opt/solr
+
+VOLUME /opt/solr/data/cores
 EXPOSE 8983
 WORKDIR /opt/solr
 USER $SOLR_USER
+
+ENTRYPOINT ["/opt/solr/solr"]

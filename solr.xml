@@ -1,0 +1,7 @@
+<solr>
+  <str name="configSetBaseDir">/opt/solr/server/solr/configsets</str>
+  <coreRootDirectory>/opt/solr/data/cores</coreRootDirectory>
+  <shardHandlerFactory name="shardHandlerFactory" class="HttpShardHandlerFactory">
+    <str name="urlScheme">${urlScheme:}</str>
+  </shardHandlerFactory>
+</solr>
