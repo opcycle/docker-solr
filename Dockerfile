@@ -1,5 +1,8 @@
 FROM opcycle/openjdk:11
 
+LABEL maintainer="OpCycle <oss@opcycle.net>"
+LABEL repository="https://github.com/opcycle/docker-solr"
+
 ARG SOLR_VERSION="8.2.0"
 
 ENV SOLR_PORT="8080" \
