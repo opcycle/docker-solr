@@ -9,6 +9,16 @@
 - [GitHub actions builds](https://github.com/opcycle/solr/actions) 
 - [Docker Hub](https://hub.docker.com/r/opcycle/solr)
 
+#### Supported versions
+- Solr 8.2
+- Solr 8.3
+- Solr 8.4
+- Solr 8.5
+- Solr 8.6
+- Solr 8.7
+- Solr 8.8
+- Solr 8.9
+- Solr 8.10
 
 #### Environment Variables
 When you start the Solr image, you can adjust the configuration of the instance by passing one or more environment variables either on the docker-compose file or on the docker run command line. The following environment values are provided to custom Solr:
@@ -37,7 +47,7 @@ To avoid inadvertent removal of this volume you can mount host directories as da
 docker service create --name solr \
   -p 8080:8080 \
   -e JAVA_ARGS="-Xms2G -Xmx31G" \
-  --mount type=bind,source=/data/cores,destination=/opt/solr/data/cores \
+  --mount type=bind,source=/data/solr,destination=/opt/solr/data/cores \
   opcycle/solr:8.2.0
 ```
 
@@ -53,12 +63,24 @@ version: "3.8"
 services:
   solr:
     image: opcycle/solr:8.2.0
+    ports:
+      - 8080:8080
+    volumes:
+      - solr_data:/opt/solr/data/cores
     deploy:
       replicas: 1
       restart_policy:
         condition: on-failure
       env:
         JAVA_ARGS: -Xms2G -Xmx31G
+
+volumes:
+  solr_data:
+    driver: local
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "/data/solr"
 ```
 
 
